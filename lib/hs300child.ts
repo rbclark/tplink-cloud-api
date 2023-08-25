@@ -31,6 +31,10 @@ export default class HS300child extends device {
     this.child = child;
   }
 
+  get alias() {
+    return this.child.alias || this.device.alias;
+  }
+
   async powerOn() {
     return await this.setRelayState(1);
   }
@@ -93,7 +97,8 @@ export default class HS300child extends device {
   }
   async getRelayState() {
     const r = await this.getSysInfo();
-    return r.relay_state;
+
+    return r.children.find(ch => ch.id === this.child.id).state;
   }
 
   async getSysInfo() {

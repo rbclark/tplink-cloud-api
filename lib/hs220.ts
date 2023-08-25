@@ -13,4 +13,10 @@ export default class HS220 extends hs200 {
       },
     });
   }
+
+  public async getBrightness() {
+    const r = await super.getSysInfo();
+
+    return r.brightness;
+  }
 }
